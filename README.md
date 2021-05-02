@@ -59,7 +59,14 @@ AND (e.birth_date BETWEEN '1965-01-01' AND '1965-12-31');
 #### Four Major Points from our Analysis
 * 90,398 people were found to be close to retiring.  This comes from unique_titles table generated from the list of the employees retiring with their current title only.
 * 1,549 people are eligible to be a part of the mentorship program if we only consider those born in 1965.
-* 2 Managers, 29,414 Senior Engineers and 28,254 Senior Staff are retiring.  This was found by counting up just the titles from the list of the employees retiring.
+* 2 Managers, 29,414 Senior Engineers and 28,254 Senior Staff are retiring which will leave a large gap in upper level positions.  This was found by counting up just the titles from the list of the employees retiring. The full count is here:<br>
+&emsp;	29414	Senior Engineer<br>
+&emsp;	28254	Senior Staff<br>
+&emsp;	14222	Engineer<br>
+&emsp;	12243	Staff<br>
+&emsp;	4502	Technique Leader<br>
+&emsp;	1761	Assistant Engineer<br>
+&emsp;	2	Manager<br>
 * Results show that there are not enough people who are not retiring to fill the positions retirees will vacate.
 
 ## Summary
