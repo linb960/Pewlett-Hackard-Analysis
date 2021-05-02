@@ -56,7 +56,11 @@ WHERE (de.to_date = '9999-01-01')
 AND (e.birth_date BETWEEN '1965-01-01' AND '1965-12-31');
 ```
 ## Results
-Provide a bulleted list with four major points from the two analysis deliverables. Use images as support where needed.
+#### Four Major Points from our Analysis
+* 90,398 people were found to be close to retiring.  This comes from unique_titles table generated from the list of the employees retiring with their current title only.
+* 1,549 people are eligible to be a part of the mentorship program if we only consider those born in 1965.
+* 2 Managers, 29,414 Senior Engineers and 28,254 Senior Staff are retiring.  This was found by counting up just the titles from the list of the employees retiring.
+* Results show that there are not enough people who are not retiring to fill the positions retirees will vacate.
 
 ## Summary
 Provide high-level responses to the following questions, then provide two additional queries or tables that may provide more insight into the upcoming "silver tsunami."
