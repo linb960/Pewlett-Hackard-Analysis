@@ -67,11 +67,54 @@ AND (e.birth_date BETWEEN '1965-01-01' AND '1965-12-31');
 &emsp;	4502	Technique Leader<br>
 &emsp;	1761	Assistant Engineer<br>
 &emsp;	2	Manager<br>
-* Results show that there are not enough people who are not retiring to fill the positions retirees will vacate.
+* Finally there are not enough people remaining with the company to fill all the vacancies that will occur when people start retiring.
 
 ## Summary
-Provide high-level responses to the following questions, then provide two additional queries or tables that may provide more insight into the upcoming "silver tsunami."
+The "silver tsunami" will create a great gap in talent in the company.  The impact on PH will be most noticable in management and senior staffing positions as 2 managers, 29,414 Senior Engineers and 28,254 Senior Staff will all be retiring soon.  The mentoring program will be very important to bring current staff and engineers up to senior positions.  
 
-How many roles will need to be filled as the "silver tsunami" begins to make an impact?
+To answer this question about whether there enough qualified, retirement-ready employees in the departments to mentor the next generation of Pewlett Hackard employees all we have to do is look at the number of retirement ready empoloyees.  Since there are over 90,000 people retiring there are plenty of people to mentor the only 1,549 current employees, not retiring soon, to take part in the mentor program.
 
-Are there enough qualified, retirement-ready employees in the departments to mentor the next generation of Pewlett Hackard employees?
+### Additional Analysis
+#### Find more employees eligible to Mentor
+Because there are so few employees found for the mentorship program it seems that an additional query should be run.  Since the first query looked at only those born in 1965 but retirement numbers were based on three years it might be better to run this query for 1963-65:<br>
+```
+SELECT DISTINCT ON (emp_no) e.emp_no,
+	e.first_name,
+	e.last_name,
+	e.birth_date,
+	de.from_date,
+	de.to_date,
+	t.title	
+INTO mentorship_eligibilty_updated
+FROM employees as e
+INNER JOIN titles as t
+ON (e.emp_no = t.emp_no)
+INNER JOIN dept_employee as de
+ON (e.emp_no = de.emp_no)
+WHERE (de.to_date = '9999-01-01')
+AND (e.birth_date BETWEEN '1963-01-01' AND '1965-12-31');
+```
+<br>
+This query yields 38,401 employees eligible for the mentorship program.   A 3:1 ratio of people retiring to one person eligible to take that persons place.  Prior the program had 9 people retiring for every 1 person eligible.
+
+#### Find out what the jobs the current employees eligible for the mentoring program
+If the basis for selection into the mentorship program goes ahead with the employees born 1963 to 1965 then we can use a query to count the title of those employees to gauge if there will be enough retirement eligible personnel avaible to mentor them.  The query used is here:
+
+```
+SELECT COUNT(title), title
+INTO mentorship_eligibilty_titles
+FROM mentorship_eligibilty_updated
+GROUP BY title
+ORDER BY count DESC;
+```
+Our results show that the numbers are much better when compared side by side.  The Senior Staff and Technique Leaders are close to a 2:1 ratio, Engineers and Assistant Engineers are close to 1:1.  Staff is 3:1.  Managers look very good with these numbers with 2 managers retiring and 4 staying on.  The biggest gap is in the Senior Engineer positions with close to 7 retiring and only 1 left.  But these numbers also don't feel as overwhelming as in the original queries.<br>
+
+|Mentorship Employees |	Retiring Employees |
+|---------------------|--------------------|	
+|13391	Senior Staff |	28254	Senior Staff|
+|13357	Engineer |	14222	Engineer|
+|4100	Staff	|	12243	Staff|
+|3791	Senior Engineer| 29414	Senior Engineer|
+|1946	Assistant Engineer| 1761	Assistant Engineer|
+|1812	Technique Leader| 4502	Technique Leader|
+|4	Manager |	2 Manager|
